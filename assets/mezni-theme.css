@@ -1,0 +1,46 @@
+
+:root{
+ --bg:#0b0d10!important;--panel:#12161b!important;--panel-alt:#191f26!important;
+ --line:#303943!important;--line-soft:#252d36!important;--text:#f4f6f8!important;
+ --text-dim:#a4afb9!important;--text-faint:#77838e!important;
+ --accent:#ff8a00!important;--in-color:#ff9d24!important;--out-color:#62d6ae!important;
+ --ur-color:#c49cff!important;--time-color:#56c8ff!important;--cutoff-color:#ff6262!important;
+ --radius:12px!important;
+}
+html,body{background:radial-gradient(ellipse at 50% -20%,#292016 0%,#0b0d10 55%)!important;color:var(--text)!important}
+body{padding:clamp(10px,2.5vw,28px)!important}
+.rig{max-width:1320px!important;border:1px solid #343b43!important;border-radius:18px!important;box-shadow:0 24px 80px #0008!important;background:#101419!important}
+.site-header{background:linear-gradient(120deg,#1a2027,#12161b)!important;text-align:left!important;padding:18px 24px!important;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.site-header .site-title{color:#fff!important;font-size:clamp(17px,2vw,22px)!important;letter-spacing:1.4px!important;margin:0!important;display:flex;align-items:center;gap:14px}
+.site-header .site-title:before{content:"";display:inline-block;width:54px;height:54px;background:url("mezni-logo-original.jpg") center/cover;border-radius:10px;border:1px solid #ff8a0066;box-shadow:0 0 26px #ff8a0020}
+.page-switcher select,.topbar select,.controls select,.controls input,.controls button{border-radius:9px!important}
+.topbar{background:#151a20!important;padding:12px 22px!important}
+.topbar a,.btn-home{color:#ffad4c!important}
+.topbar a:hover,.btn-home:hover{color:#ffd09a!important}
+.plate{background:linear-gradient(100deg,#1a2027,#14191f)!important}
+.plate h1{letter-spacing:.2px}
+.card,.ctrl,.scope,.panel{border-radius:12px!important}
+input[type=range]{height:5px!important;accent-color:#ff8a00}
+input[type=range]::-webkit-slider-thumb{width:17px!important;height:17px!important;background:#ff8a00!important;border:3px solid #171b20!important}
+button,.btn,.page-switcher select{transition:all .18s ease}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #ff9d24!important;outline-offset:3px}
+footer.mezni-footer{margin:24px auto 0;padding:18px 22px;border-top:1px solid #343b43;color:#89939d;font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer.mezni-footer strong{color:#ff9a1f;letter-spacing:1px}
+@media(max-width:650px){.site-header{align-items:flex-start}.site-header .site-title:before{width:42px;height:42px}.topbar{padding:10px 14px!important}.rig{border-radius:12px!important}}
+
+/* MEZNI contact action and persistent brand mark */
+.mezni-contact{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 15px;border-radius:10px;background:linear-gradient(135deg,#ff9a1f,#ff7900);color:#17110a!important;text-decoration:none!important;font-size:12px;font-weight:850;letter-spacing:.35px;border:1px solid #ffb04d;box-shadow:0 6px 20px #ff8a0026;white-space:nowrap;transition:transform .18s ease,filter .18s ease}
+.mezni-contact:hover{transform:translateY(-2px);filter:brightness(1.08);color:#100d09!important}
+.site-header .site-title:before{flex:0 0 54px;background-image:url("mezni-logo-original.jpg");background-repeat:no-repeat;background-position:center;background-size:cover}
+@media(max-width:650px){.mezni-contact{padding:9px 11px;font-size:11px}.site-header .site-title:before{flex-basis:42px}}
+
+/* Persistent, real logo element in every laboratory header */
+.site-header .mezni-header-logo{display:block;width:54px;height:54px;flex:0 0 54px;object-fit:cover;border-radius:10px;border:1px solid #ff8a0066;box-shadow:0 0 26px #ff8a0020}
+.site-header .site-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mezni-voltage-widget{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;align-items:center;gap:10px;padding:11px 15px;border:1px solid #ff9a1f;border-radius:14px;background:linear-gradient(135deg,#20262dF5,#101419F5);box-shadow:0 10px 34px #0009;color:#f5f7fa;font:700 12px/1.2 system-ui,sans-serif;backdrop-filter:blur(10px)}
+.mezni-voltage-widget .mv-label{color:#ffb04d;letter-spacing:.8px;font-size:10px;text-transform:uppercase}
+.mezni-voltage-widget .mv-value{font:900 20px/1.1 ui-monospace,monospace;color:#fff;white-space:nowrap}
+.mezni-voltage-widget .mv-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#ff8a0020;color:#ff9a1f;font-size:17px}
+@media(max-width:600px){.site-header .mezni-header-logo{width:42px;height:42px;flex-basis:42px}.mezni-voltage-widget{right:10px;bottom:10px;padding:9px 12px}.mezni-voltage-widget .mv-value{font-size:17px}}
+/* The actual image element replaces the former pseudo-element logo. */
+.site-header .site-title:before{display:none!important;content:none!important}
