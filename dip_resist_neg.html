@@ -138,7 +138,7 @@ html{-webkit-text-size-adjust:100%}
  .signature{margin-top:4px;padding:0 12px 14px;font-size:11px;line-height:1.4}
 }
 </style><link rel="stylesheet" href="assets/mezni-theme.css">
-<link rel="icon" href="assets/mezni-logo-original.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <a class="btn-home" href="index.html">← MEZNI Electronics Lab</a>
 <body><div 
@@ -319,4 +319,42 @@ function draw(){const{A,N,R,Rp,R1,R2}=P,T=1/N;
   });
 setK(true);
 </script><footer class="mezni-footer"><span><strong>MEZNI™</strong> · Electronics Lab — Moemen Mezni</span><span>© 2026 Moemen Mezni. Tous droits réservés. · MEZNI™</span></footer>
+<script>
+/* MEZNI axis graduations: numbered divisions; physical values follow the displayed scale/div. */
+(function(){
+  const ids = ['scopeCanvas','energyCanvas','cv'];
+  function annotate(canvas){
+    if(!canvas || !canvas.isConnected) return;
+    const w=canvas.clientWidth, h=canvas.clientHeight;
+    if(w<120 || h<100) return;
+    const ctx=canvas.getContext('2d'); if(!ctx) return;
+    const dpr=window.devicePixelRatio||1;
+    ctx.save(); ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.font='9px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle='rgba(190,202,211,.78)'; ctx.strokeStyle='rgba(190,202,211,.48)'; ctx.lineWidth=1;
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    const left=canvas.id==='cv'?34:44, right=10, top=10, bottom=18;
+    const pw=w-left-right, ph=h-top-bottom;
+    if(pw<=0||ph<=0){ctx.restore();return;}
+    // Small tick marks and division numbers along the horizontal axis.
+    for(let i=0;i<=10;i++){
+      const x=left+pw*i/10;
+      ctx.beginPath();ctx.moveTo(x,h-bottom-4);ctx.lineTo(x,h-bottom+1);ctx.stroke();
+      if(i%2===0) ctx.fillText(String(i),x,h-bottom+2);
+    }
+    // Vertical division labels: +4 at top, 0 at centre, -4 at bottom.
+    ctx.textAlign='right';ctx.textBaseline='middle';
+    for(let i=0;i<=8;i++){
+      const y=top+ph*i/8;
+      ctx.beginPath();ctx.moveTo(left-4,y);ctx.lineTo(left+1,y);ctx.stroke();
+      if(i%2===0) ctx.fillText(String(4-i),left-6,y);
+    }
+    ctx.fillStyle='rgba(255,157,48,.9)';ctx.textAlign='right';ctx.textBaseline='bottom';
+    ctx.fillText('div',w-right,h-1);
+    ctx.restore();
+  }
+  function frame(){ids.forEach(id=>annotate(document.getElementById(id)));requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);
+})();
+</script>
 </body></html>

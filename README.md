@@ -33,3 +33,14 @@ This project is licensed under the [MIT License](LICENSE). Copyright © 2026 Moe
 
 ## Project name
 The official project name is **MEZNI Electronics Lab**. All project pages use the MEZNI identity and Moemen Mezni attribution.
+
+
+## État pédagogique
+
+Les expériences « Oscillations forcées », « Oscillations entretenues », « Dipôle à résistance négative », « Montages à AOP » et « Convertisseur numérique-analogique » sont signalées comme bientôt disponibles sur l’accueil, car ces notions ne sont pas encore étudiées pendant le semestre en cours.
+
+Les graphiques de type oscilloscope affichent des graduations en divisions. Pour obtenir les valeurs physiques, multiplier le nombre de divisions par l’échelle indiquée (par exemple V/div ou s/div).
+
+## Graduations des graphiques
+
+Les oscillogrammes présentent des graduations horizontales et verticales en divisions. Les échelles affichées dans chaque laboratoire (V/div, s/div ou J/div) permettent de convertir les divisions en valeurs physiques. Le diagramme de Bode possède des graduations en Hz, mA et V.

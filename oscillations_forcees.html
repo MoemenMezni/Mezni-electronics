@@ -407,7 +407,7 @@
   }
 </style>
 <link rel="stylesheet" href="assets/mezni-theme.css">
-<link rel="icon" href="assets/mezni-logo-original.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -1157,6 +1157,23 @@
     bCtx.strokeStyle = "#2a353c"; bCtx.lineWidth = 1;
     bCtx.beginPath(); bCtx.moveTo(40, 10); bCtx.lineTo(40, h - 25); bCtx.lineTo(w - 10, h - 25); bCtx.stroke();
 
+    // Graduations réelles du diagramme de Bode : fréquence en Hz, intensité en mA et tension en V.
+    const x0 = 40, x1 = w - 10, y0 = 10, y1 = h - 25;
+    bCtx.save(); bCtx.font = "9px ui-monospace, monospace"; bCtx.lineWidth = 1;
+    for (let i = 0; i <= 6; i++) {
+      const x = x0 + (x1 - x0) * i / 6;
+      bCtx.strokeStyle = "rgba(124,138,146,.24)"; bCtx.beginPath(); bCtx.moveTo(x,y0); bCtx.lineTo(x,y1); bCtx.stroke();
+      bCtx.fillStyle = "#7c8a92"; bCtx.textAlign = "center"; bCtx.fillText(String(i*100),x,y1+12);
+    }
+    for (let i = 0; i <= 4; i++) {
+      const y = y1 - (y1-y0)*i/4;
+      bCtx.strokeStyle = "rgba(124,138,146,.24)"; bCtx.beginPath(); bCtx.moveTo(x0,y); bCtx.lineTo(x1,y); bCtx.stroke();
+      bCtx.fillStyle = "#4fc3e8"; bCtx.textAlign = "right"; bCtx.fillText((maxI*i/4*1000).toFixed(1),x0-5,y+3);
+      bCtx.fillStyle = "#c792ea"; bCtx.textAlign = "left"; bCtx.fillText((maxUcm*i/4).toFixed(1),x1+4,y+3);
+    }
+    bCtx.fillStyle = "#7c8a92"; bCtx.textAlign = "center"; bCtx.fillText("N (Hz)",(x0+x1)/2,h-2);
+    bCtx.restore();
+
     const maxN = 600;
     // Échelles verticales : celles du circuit actuel, élargies si besoin pour afficher les courbes enregistrées
     let maxI = Um / Rtotal;
@@ -1782,5 +1799,43 @@
 (()=>{const source=document.getElementById('uSlider');const out=document.getElementById('mezniGeneratorVoltage');if(!source||!out)return;const refresh=()=>{const n=Number(source.value);out.textContent=(Number.isFinite(n)?new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(n):'—')+' V';};source.addEventListener('input',refresh);source.addEventListener('change',refresh);refresh();})();
 </script>
 
+<script>
+/* MEZNI axis graduations: numbered divisions; physical values follow the displayed scale/div. */
+(function(){
+  const ids = ['scopeCanvas','energyCanvas','cv'];
+  function annotate(canvas){
+    if(!canvas || !canvas.isConnected) return;
+    const w=canvas.clientWidth, h=canvas.clientHeight;
+    if(w<120 || h<100) return;
+    const ctx=canvas.getContext('2d'); if(!ctx) return;
+    const dpr=window.devicePixelRatio||1;
+    ctx.save(); ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.font='9px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle='rgba(190,202,211,.78)'; ctx.strokeStyle='rgba(190,202,211,.48)'; ctx.lineWidth=1;
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    const left=canvas.id==='cv'?34:44, right=10, top=10, bottom=18;
+    const pw=w-left-right, ph=h-top-bottom;
+    if(pw<=0||ph<=0){ctx.restore();return;}
+    // Small tick marks and division numbers along the horizontal axis.
+    for(let i=0;i<=10;i++){
+      const x=left+pw*i/10;
+      ctx.beginPath();ctx.moveTo(x,h-bottom-4);ctx.lineTo(x,h-bottom+1);ctx.stroke();
+      if(i%2===0) ctx.fillText(String(i),x,h-bottom+2);
+    }
+    // Vertical division labels: +4 at top, 0 at centre, -4 at bottom.
+    ctx.textAlign='right';ctx.textBaseline='middle';
+    for(let i=0;i<=8;i++){
+      const y=top+ph*i/8;
+      ctx.beginPath();ctx.moveTo(left-4,y);ctx.lineTo(left+1,y);ctx.stroke();
+      if(i%2===0) ctx.fillText(String(4-i),left-6,y);
+    }
+    ctx.fillStyle='rgba(255,157,48,.9)';ctx.textAlign='right';ctx.textBaseline='bottom';
+    ctx.fillText('div',w-right,h-1);
+    ctx.restore();
+  }
+  function frame(){ids.forEach(id=>annotate(document.getElementById(id)));requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
